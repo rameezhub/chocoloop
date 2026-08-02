@@ -16,6 +16,7 @@ export default function Navbar() {
           <Link href="/shop">Shop</Link>
 
           <Link href="/cart">Cart</Link>
+          <Link href="/orders">My Orders</Link>
 
           <Link href="/login">Login</Link>
 

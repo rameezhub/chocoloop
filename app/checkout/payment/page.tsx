@@ -11,6 +11,7 @@ export default function PaymentPage() {
   const total = Number(params.get("total"));
   const paymentMethod = params.get("method") || "UPI";
 
+  const [upiId, setUpiId] = useState("");
   const [cardName, setCardName] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [expiry, setExpiry] = useState("");
@@ -29,7 +30,6 @@ export default function PaymentPage() {
       return;
     }
 
-    // Get cart
     const { data: cart } = await supabase
       .from("cart")
       .select("*")
@@ -41,7 +41,6 @@ export default function PaymentPage() {
       return;
     }
 
-    // Create Order
     const { data: order, error: orderError } = await supabase
       .from("orders")
       .insert({
@@ -54,13 +53,11 @@ export default function PaymentPage() {
       .single();
 
     if (orderError) {
-      console.error(orderError);
       alert(orderError.message);
       setLoading(false);
       return;
     }
 
-    // Get products for price lookup
     const { data: products } = await supabase
       .from("products")
       .select("*");
@@ -73,19 +70,16 @@ export default function PaymentPage() {
         products?.find((p: any) => p.id === item.product_id)?.price || 0,
     }));
 
-    // Insert order items
     const { error: itemError } = await supabase
       .from("order_items")
       .insert(items);
 
     if (itemError) {
-      console.error(itemError);
       alert(itemError.message);
       setLoading(false);
       return;
     }
 
-    // Empty Cart
     await supabase
       .from("cart")
       .delete()
@@ -105,47 +99,65 @@ export default function PaymentPage() {
         </h1>
 
         <p className="text-gray-400 mb-6">
-          Payment Method : {paymentMethod}
+          Payment Method: {paymentMethod}
         </p>
 
-        <input
-          placeholder="Card Holder Name"
-          value={cardName}
-          onChange={(e) => setCardName(e.target.value)}
-          className="w-full p-4 rounded-xl bg-[#140D08] border border-gray-700 mb-4"
-        />
+        {(paymentMethod === "Credit Card" ||
+          paymentMethod === "Debit Card") && (
+          <>
+            <input
+              placeholder="Card Holder Name"
+              value={cardName}
+              onChange={(e) => setCardName(e.target.value)}
+              className="w-full p-4 rounded-xl bg-[#140D08] border border-gray-700 mb-4"
+            />
 
-        <input
-          placeholder="Card Number"
-          value={cardNumber}
-          onChange={(e) => setCardNumber(e.target.value)}
-          className="w-full p-4 rounded-xl bg-[#140D08] border border-gray-700 mb-4"
-        />
+            <input
+              placeholder="Card Number"
+              value={cardNumber}
+              onChange={(e) => setCardNumber(e.target.value)}
+              className="w-full p-4 rounded-xl bg-[#140D08] border border-gray-700 mb-4"
+            />
 
-        <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <input
+                placeholder="MM/YY"
+                value={expiry}
+                onChange={(e) => setExpiry(e.target.value)}
+                className="p-4 rounded-xl bg-[#140D08] border border-gray-700"
+              />
 
+              <input
+                placeholder="CVV"
+                value={cvv}
+                onChange={(e) => setCvv(e.target.value)}
+                className="p-4 rounded-xl bg-[#140D08] border border-gray-700"
+              />
+            </div>
+          </>
+        )}
+
+        {paymentMethod === "UPI" && (
           <input
-            placeholder="MM/YY"
-            value={expiry}
-            onChange={(e) => setExpiry(e.target.value)}
-            className="p-4 rounded-xl bg-[#140D08] border border-gray-700"
+            placeholder="Enter UPI ID"
+            value={upiId}
+            onChange={(e) => setUpiId(e.target.value)}
+            className="w-full p-4 rounded-xl bg-[#140D08] border border-gray-700 mb-4"
           />
+        )}
 
-          <input
-            placeholder="CVV"
-            value={cvv}
-            onChange={(e) => setCvv(e.target.value)}
-            className="p-4 rounded-xl bg-[#140D08] border border-gray-700"
-          />
-
-        </div>
+        {paymentMethod === "Cash On Delivery" && (
+          <div className="bg-[#140D08] p-4 rounded-xl text-green-400 text-center mb-4">
+            Cash on Delivery selected
+          </div>
+        )}
 
         <button
           onClick={payNow}
           disabled={loading}
-          className="mt-8 w-full bg-yellow-500 hover:bg-yellow-400 text-black font-bold py-4 rounded-xl"
+          className="mt-4 w-full bg-yellow-500 hover:bg-yellow-400 text-black font-bold py-4 rounded-xl"
         >
-          {loading ? "Processing Payment..." : `Pay ₹${total}`}
+          {loading ? "Processing..." : `Pay ₹${total}`}
         </button>
 
       </div>
