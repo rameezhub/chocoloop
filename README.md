@@ -1,36 +1,177 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🍫 ChocoLoop
 
-## Getting Started
+> A modern chocolate e-commerce platform built with Next.js, Supabase, and Tailwind CSS.
 
-First, run the development server:
+ChocoLoop is a full-stack chocolate shopping website designed to provide a smooth and premium online shopping experience. Customers can browse chocolates, add products to their cart, manage their profile, place orders, and view their previous orders.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The project also includes authentication, database integration, cart management, checkout, order management, and an admin authentication system.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🛍️ Customer Shopping
 
-## Learn More
+- Browse available chocolate products
+- Product cards with images, names, prices, and descriptions
+- Dedicated Shop page
+- Add products to cart
+- Increase or decrease product quantity
+- Remove products from cart
+- View cart total
+- Proceed to checkout
+- Responsive shopping experience
 
-To learn more about Next.js, take a look at the following resources:
+### 🔐 Authentication
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Customer registration
+- Customer login
+- Secure authentication using Supabase
+- Logout functionality
+- Profile access after login
+- Authentication-aware navigation
+- Protected user-specific data
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🛒 Shopping Cart
 
-## Deploy on Vercel
+- User-specific cart
+- Add products to cart
+- Update product quantities
+- Remove individual products
+- Automatic cart total calculation
+- Cart data stored in Supabase
+- Row Level Security support
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 💳 Checkout
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The checkout system supports multiple payment methods:
+
+- UPI
+- Credit Card
+- Debit Card
+- Cash on Delivery
+
+After checkout, the order information is stored in the database and the customer can view it from the Orders section.
+
+### 📦 Orders
+
+Customers can:
+
+- View previous orders
+- See order totals
+- View payment method
+- View payment status
+- See products included in an order
+- View product images
+- Track their order history
+
+### 👨‍🍳 Our Story
+
+ChocoLoop includes a dedicated brand story section featuring:
+
+- Chocolate-making story
+- Chocolate gallery
+- Chocolatier section
+- Chocolate-making visuals
+- Brand-focused content
+
+### 🎨 Modern UI
+
+- Premium chocolate-inspired design
+- Dark chocolate color palette
+- Golden/yellow accents
+- Responsive layout
+- Mobile-friendly navigation
+- Smooth hover effects
+- Clean product cards
+- Modern checkout experience
+
+---
+
+# 🧑‍💻 Tech Stack
+
+## Frontend
+
+- **Next.js**
+- **React**
+- **TypeScript**
+- **Tailwind CSS**
+- **Next/Image**
+- **Next/Link**
+
+## Backend & Database
+
+- **Supabase**
+- **Supabase Authentication**
+- **PostgreSQL**
+- **Row Level Security (RLS)**
+
+## Development Tools
+
+- Node.js
+- npm
+- Git
+- GitHub
+- VS Code
+
+---
+
+# 📁 Project Structure
+
+```text
+chocoloop/
+│
+├── app/
+│   ├── admin/
+│   │   └── login/
+│   │
+│   ├── cart/
+│   │   └── page.tsx
+│   │
+│   ├── checkout/
+│   │   ├── page.tsx
+│   │   └── payment/
+│   │       └── page.tsx
+│   │
+│   ├── components/
+│   │   ├── Navbar.tsx
+│   │   ├── ProductCard.tsx
+│   │   ├── AddToCartButton.tsx
+│   │   ├── OurStory.tsx
+│   │   ├── Hero.tsx
+│   │   ├── WhyChoose.tsx
+│   │   ├── Reviews.tsx
+│   │   ├── LuxuryBanner.tsx
+│   │   └── Footer.tsx
+│   │
+│   ├── lib/
+│   │   ├── client.ts
+│   │   └── supabase.ts
+│   │
+│   ├── login/
+│   │   └── page.tsx
+│   │
+│   ├── signup/
+│   │   └── page.tsx
+│   │
+│   ├── orders/
+│   │   └── page.tsx
+│   │
+│   ├── profile/
+│   │   └── page.tsx
+│   │
+│   ├── shop/
+│   │   └── page.tsx
+│   │
+│   ├── page.tsx
+│   └── globals.css
+│
+├── public/
+│   └── images/
+│
+├── middleware.ts
+├── next.config.ts
+├── package.json
+├── tsconfig.json
+├── postcss.config.mjs
+└── README.md
