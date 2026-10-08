@@ -156,9 +156,18 @@ export default function CartPage() {
   return (
     <main className="min-h-screen bg-[#140D08] text-white py-20">
       <div className="max-w-6xl mx-auto px-6">
-        <h1 className="text-5xl font-bold text-yellow-400 mb-10">
-          🛒 Shopping Cart
-        </h1>
+       {/* Back Button */}
+<Link
+  href="/"
+  className="inline-flex items-center gap-2 mb-8 rounded-xl border border-yellow-500/30 bg-[#20130B] px-5 py-3 font-semibold text-yellow-400 transition-all duration-300 hover:bg-yellow-500 hover:text-black"
+>
+  ← Back to Home
+</Link>
+
+{/* Cart Heading */}
+<h1 className="text-5xl font-bold text-yellow-400 mb-10">
+  🛒 Shopping Cart
+</h1>
 
         {cartItems.length === 0 ? (
           <p className="text-xl text-gray-400">
